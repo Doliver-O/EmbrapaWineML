@@ -16,7 +16,7 @@ Este projeto visa construir uma **Rest API** em Python que consulta os dados vit
   - Importação
   - Exportação
 - API Documentada para fácil integração e uso por terceiros.
-- Opção de autenticação via **JWT** (se implementada).
+- Opção de autenticação via Flask Login.
 - MVP com deploy em ambiente de produção.
 
 ## Tecnologias Utilizadas
