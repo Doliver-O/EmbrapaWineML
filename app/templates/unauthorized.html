@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center; /* Centraliza horizontalmente */
+            align-items: center; /* Centraliza verticalmente */
+            background-color: #333; /* Exemplo de cor de fundo */
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+
+        /* Estilo para o nav */
+        nav {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-family: Arial, sans-serif;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navegação no canto superior esquerdo -->
+    <nav>
+        <a href="/">Home</a>
+    </nav>
+
+    <h1>SEM AUTORIZAÇÃO</h1>
+</body>
+</html>

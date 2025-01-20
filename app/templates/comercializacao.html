@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comercialização</title>
+</head>
+<body>
+    <button style="margin-top: 20px; margin-left: 10px; background-color:#222b3a ;" ><a style="color: white;" href="http://vitibrasil.cnpuv.embrapa.br/download/Comercio.csv" class="btn btn-primary">Exportar Dados para CSV</a></button>
+    <h1 id="titulo" style="text-align: center; color: aliceblue;">Tabela de Comercialização: 2023</h1>
+    <div class="container">
+
+        <label style="color: white; font-family: Arial, Helvetica, sans-serif;"  for="ano">Escolha o ano:</label>
+        <input value="2023"  type="number" id="ano" placeholder="Ex: 2023" />
+        <button onclick="carregarTabela()">Buscar Dados</button>
+
+       
+    </div>
+    <div style="position: relative; padding: 10px; background-color: #222b3a; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" id="background_table">
+    <div id="tabela"></div>
+    </div>
+
+
+
+
+
+    <script>
+        function carregarTabela() {
+            const ano = document.getElementById('ano').value;
+            document.getElementById("titulo").innerHTML = "Tabela de Comercialização: "+ ano            
+            fetch(`/api/comercializacao?ano=${ano}`)
+
+                .then(response => response.json())
+                .then(data => {
+                    const tabelaDiv = document.getElementById('tabela');
+                    if (data.error) {
+                        tabelaDiv.innerHTML = `<p>Erro: ${data.error}</p>`;
+                        return;
+                    }
+
+                    // Cria a tabela dinamicamente
+                    const table = document.createElement('table');
+                    table.border = "1";
+                    const headerRow = document.createElement('tr');
+                    Object.keys(data[0]).forEach(header => {
+                        const th = document.createElement('th');
+                        th.textContent = header;
+                        headerRow.appendChild(th);
+                    });
+                    table.appendChild(headerRow);
+
+                    data.forEach(row => {
+                        const rowEl = document.createElement('tr');
+                        Object.values(row).forEach(cell => {
+                            const td = document.createElement('td');
+                            td.textContent = cell;
+                            rowEl.appendChild(td);
+                        });
+                        table.appendChild(rowEl);
+                    });
+
+                    tabelaDiv.innerHTML = '';  // Limpa a tabela anterior
+                    tabelaDiv.appendChild(table);
+                })
+                .catch(error => {
+                    document.getElementById('tabela').innerHTML = `<p>Erro: ${error.message}</p>`;
+                });
+        }
+
+        // Carregar a tabela inicial com o ano padrão (2023)
+        carregarTabela(2023);
+    </script>
+</body>
+</html>
+
+
+
+{% endblock %}

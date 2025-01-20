@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Tabela de Uvas</title>
+</head>
+<body>
+    <div class="container">
+     <button style="margin-top: 20px; margin-left: 10px; background-color:#222b3a ;" ><a style="color: white;" href="http://vitibrasil.cnpuv.embrapa.br/download/ProcessaAmericanas.csv" class="btn btn-primary">Exportar Dados para CSV</a></button>
+
+        <h1 id="titulo" style="text-align: center; color: aliceblue;">Processamento</h1>
+        <label style="color: white; font-family: Arial, Helvetica, sans-serif;"  for="ano">Escolha o ano:</label>
+        <input value="2023"  type="number" id="ano" placeholder="Ex: 2023" />
+
+        <label style="color: white; font-family: Arial, Helvetica, sans-serif;"  for="opcao">Escolha a opção:</label>
+        <select id="opcao">
+            <option value="subopt_01">Viníferas</option>
+            <option value="subopt_02">Americanas e Híbridas</option>
+            <option value="subopt_03">Uvas de Mesa</option>
+            <option value="subopt_04">Sem Classificação</option>
+        </select>
+
+        <button onclick="carregarTabela()">Buscar Dados</button>
+
+       
+    </div>
+   
+    <div style="position: relative; padding: 10px; background-color: #222b3a; border-radius: 10px; box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);" id="background_table">
+    <div id="tabela-container"></div>
+    </div>
+
+    <script>
+        function carregarTabela() {
+            const ano = document.getElementById('ano').value;
+            const opcao = document.getElementById('opcao').value;
+            console.log(ano)
+            console.log(opcao)
+            
+
+            if (!ano) {
+                alert('Por favor, insira um ano válido.');
+                return;
+            }
+
+            fetch(`/api/processamento?ano=${ano}&opcao=${opcao}`)
+        .then(response => response.json())
+        .then(data => {
+            console.log('Dados recebidos:', data);
+            const tabelaContainer = document.getElementById('tabela-container');
+            tabelaContainer.innerHTML = '';
+
+            if (data.erro) {
+                console.error(`Erro retornado pela API: ${data.erro}`);
+                return;
+            }
+
+            if (data.dados && data.dados.length > 0) {
+                let tabelaHtml = '<table><thead><tr>';
+
+                // Cabeçalho da tabela
+                for (const header of data.dados[0]) {
+                    tabelaHtml += `<th>${header}</th>`;
+                }
+                tabelaHtml += '</tr></thead><tbody>';
+
+                // Linhas da tabela
+                for (let i = 1; i < data.dados.length; i++) {
+                    tabelaHtml += '<tr>';
+
+                    // Identifica a primeira coluna para aplicar o estilo
+                    const primeiraColuna = data.dados[i][0];
+                    const estiloLinha = (primeiraColuna.toLowerCase() === "tintas" || primeiraColuna.toLowerCase() === "brancas e rosadas") 
+                        ? 'background-color: #12151b; color: white;' 
+                        : '';
+
+                    // Aplica o estilo à linha inteira
+                    for (let j = 0; j < data.dados[i].length; j++) {
+                        tabelaHtml += `<td style="${estiloLinha}">${data.dados[i][j]}</td>`;
+                    }
+
+                    tabelaHtml += '</tr>';
+                }
+
+                tabelaHtml += '</tbody></table>';
+                tabelaContainer.innerHTML = tabelaHtml;
+            } else {
+                tabelaContainer.innerHTML = '<p>Nenhum dado encontrado.</p>';
+            }
+        })
+        .catch(error => {
+            console.error('Erro ao carregar a tabela:', error);
+        });
+        }
+        carregarTabela()
+    </script>
+</body>
+</html>
+
+{% endblock %}
