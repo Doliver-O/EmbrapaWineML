@@ -1,6 +1,6 @@
-# VitiML-API
+# EmbrapaWineML
 
-**VitiML-API** é um projeto de análise de dados vitivinícolas da Embrapa, desenvolvido como parte de um curso de pós-graduação em Machine Learning. A API foi criada para consultar dados sobre vitivinicultura, como produção, processamento, comercialização, importação e exportação, com o objetivo de alimentar modelos de Machine Learning para análise preditiva e insights valiosos para o setor.
+** EmbrapaWineML** é um projeto de análise de dados vitivinícolas da Embrapa, desenvolvido como parte de um curso de pós-graduação em Machine Learning Engineering. A API foi criada para consultar dados sobre vitivinicultura, como produção, processamento, comercialização, importação e exportação, com o objetivo de alimentar modelos de Machine Learning para análise preditiva e insights valiosos para o setor.
 
 ## Objetivo
 
