@@ -1,4 +1,4 @@
-bind = "0.0.0.0:5000"
+bind = '0.0.0.0:10000'
 workers = 3
 threads = 2
-worker_class = 'sync'
+worker_class = 'gthread'
