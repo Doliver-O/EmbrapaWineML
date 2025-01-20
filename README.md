@@ -57,7 +57,7 @@ Siga os passos abaixo para rodar a API localmente:
 
 5. A API estará disponível em `http://localhost:5000`.
 
-   ![Descrição da imagem](.app/static/imagem/front.png)
+   ![Descrição da imagem](app/static/imagem/front.png)
 
 ## Endpoints
 
