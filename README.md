@@ -24,10 +24,10 @@ Este projeto visa construir uma **Rest API** em Python que consulta os dados vit
 - **Python**: Linguagem principal para desenvolvimento da API.
 - **Flask**: Framework web para construção da API Rest.
 - **SQLAlchemy**: ORM para conexão com banco de dados.
-- **JWT**: Autenticação (opcional).
-- **PostgreSQL/MySQL**: Banco de dados para armazenamento dos dados consultados.
-- **Docker**: Para containerização da aplicação (opcional, dependendo do plano de deploy).
-- **Heroku/AWS**: Para deploy da API (plano de deploy sugerido).
+- **Flask Login**: Autenticação.
+- **PostgreSQL/MySQL**: Banco de dados para armazenamento dos dados consultados (TBD).
+
+
 
 ## Instalação
 
