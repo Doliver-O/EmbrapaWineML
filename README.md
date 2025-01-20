@@ -1,6 +1,6 @@
-# VitiML-API
+# EmbrapaWineML
 
-**VitiML-API** é um projeto de análise de dados vitivinícolas da Embrapa, desenvolvido como parte de um curso de pós-graduação em Machine Learning. A API foi criada para consultar dados sobre vitivinicultura, como produção, processamento, comercialização, importação e exportação, com o objetivo de alimentar modelos de Machine Learning para análise preditiva e insights valiosos para o setor.
+** EmbrapaWineML** é um projeto de análise de dados vitivinícolas da Embrapa, desenvolvido como parte de um curso de pós-graduação em Machine Learning Engineering. A API foi criada para consultar dados sobre vitivinicultura, como produção, processamento, comercialização, importação e exportação, com o objetivo de alimentar modelos de Machine Learning para análise preditiva e insights valiosos para o setor.
 
 ## Objetivo
 
@@ -16,7 +16,7 @@ Este projeto visa construir uma **Rest API** em Python que consulta os dados vit
   - Importação
   - Exportação
 - API Documentada para fácil integração e uso por terceiros.
-- Opção de autenticação via **JWT** (se implementada).
+- Opção de autenticação via Flask Login.
 - MVP com deploy em ambiente de produção.
 
 ## Tecnologias Utilizadas
@@ -24,10 +24,10 @@ Este projeto visa construir uma **Rest API** em Python que consulta os dados vit
 - **Python**: Linguagem principal para desenvolvimento da API.
 - **Flask**: Framework web para construção da API Rest.
 - **SQLAlchemy**: ORM para conexão com banco de dados.
-- **JWT**: Autenticação (opcional).
-- **PostgreSQL/MySQL**: Banco de dados para armazenamento dos dados consultados.
-- **Docker**: Para containerização da aplicação (opcional, dependendo do plano de deploy).
-- **Heroku/AWS**: Para deploy da API (plano de deploy sugerido).
+- **Flask Login**: Autenticação.
+- **PostgreSQL/MySQL**: Banco de dados para armazenamento dos dados consultados (TBD).
+
+
 
 ## Instalação
 
@@ -57,7 +57,7 @@ Siga os passos abaixo para rodar a API localmente:
 
 5. A API estará disponível em `http://localhost:5000`.
 
-   ![Descrição da imagem](./imagens/front.png)
+   ![Descrição da imagem](app/static/imagem/front.png)
 
 ## Endpoints
 
