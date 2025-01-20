@@ -59,6 +59,53 @@ Siga os passos abaixo para rodar a API localmente:
 
 ## Endpoints
 
-### `/api/production`
-- Método: `GET`
-- Descrição: Retorna os dados sobre produção vitivinícola.
+### Autenticação
+- **POST** `/login`: Autentica o usuário com `username` e `password`.
+- **GET** `/login`: Exibe a página de login.
+
+### Página Inicial
+- **GET** `/`: Exibe a página inicial do site.
+
+### Produção
+- **GET** `/producao`: Exibe a página de produção.
+- **GET** `/api/producao`: Retorna os dados da tabela de produção para o ano especificado.
+- **GET** `/producao/<ano>`: Retorna dados de produção de acordo com o ano fornecido.
+- **GET** `/producao_csv`: Faz o download do arquivo CSV de produção e retorna os dados em formato JSON.
+
+### Processamento
+- **GET** `/processamento`: Exibe a página de processamento.
+- **GET** `/api/processamento`: Retorna dados de processamento para o ano e a opção especificados.
+- **GET** `/processamento_csv`: Faz o download do arquivo CSV de processamento e retorna os dados em formato JSON.
+
+### Comercialização
+- **GET** `/comercializacao`: Exibe a página de comercialização.
+- **GET** `/api/comercializacao`: Retorna os dados da tabela de comercialização para o ano especificado.
+- **GET** `/comercializacao/<ano>`: Retorna dados de comercialização de acordo com o ano fornecido.
+
+### Importação
+- **GET** `/importacao`: Exibe a página de importação.
+- **GET** `/api/importacao`: Retorna os dados de importação para o ano e a opção especificados.
+- **GET** `/importacao_csv`: Faz o download do arquivo CSV de importação e retorna os dados em formato JSON.
+
+### Exportação
+- **GET** `/exportacao`: Exibe a página de exportação.
+- **GET** `/api/exportacao`: Retorna os dados de exportação para o ano e a opção especificados.
+
+## Tecnologias Utilizadas
+- Python (Flask)
+- JWT para autenticação
+- Banco de Dados (SQLite/PostgreSQL)
+- Documentação com Swagger
+
+## Como Usar
+
+1. **Autenticação:** Use o endpoint `/login` para autenticar com `username` e `password`.
+2. **Consulta de Dados:** Utilize os endpoints de consulta para produção, processamento, comercialização, importação e exportação, especificando o ano ou opção desejada.
+3. **Download de CSV:** Para obter dados em formato CSV, acesse os endpoints correspondentes com a opção `/csv`.
+4. **API Response:** A API retorna os dados em formato JSON para facilitar a integração.
+
+## Exemplos
+
+**1. Consultar dados de produção para o ano de 2023:**
+```http
+GET /api/producao?ano=2023
