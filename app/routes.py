@@ -39,9 +39,7 @@ def about():
 
 
 ## --------------------------------------------------------------------P R O D U Ç Ã O--------------------------------------------------------------------------- ##
-## Aqui estãos as APIS que resolvem a parte de produção, a API producao_por_ano coleta as informações do Site e retorna os dados de acordo com o ano selecionado  ##
-## Já a API producao_csv faz o download do arquivo em CSV que pode ser utilizado futuramente                                                                      ##
-## -------------------------------------------------------------------------------------------------------------------------------------------------------------- ##
+
 @main.route('/producao')
 @login_required
 def production():
@@ -125,10 +123,7 @@ def producao_csv():
         return jsonify({'erro': f'Erro ao acessar o CSV: {str(e)}'}), 500
     
 ## --------------------------------------------------------------------P R O C E S S A M E N T O----------------------------------------------------------------- ##
-## Aqui estãos as APIS que resolvem a parte de processamento, a API processamento_por_ano_opcao coleta as informações do Site e retorna os dados de acordo com    ##
-## o ano e opçãoselecionado                                                                                                                                       ##
-## Já a API processamento_csv faz o download do arquivo em CSV que pode ser utilizado futuramente                                                                 ##
-## -------------------------------------------------------------------------------------------------------------------------------------------------------------- ##
+
 @main.route('/processamento')
 @login_required
 def processamento():
@@ -210,10 +205,7 @@ def processamento_csv():
         return jsonify({'erro': f'Ocorreu um erro ao processar o CSV: {str(e)}'}), 500
     
 ## --------------------------------------------------------------------C O M E R C I A L I Z A Ç Ã O------------------------------------------------------------- ##
-## Aqui estãos as APIS que resolvem a parte de processamento, a API processamento_por_ano_opcao coleta as informações do Site e retorna os dados de acordo com    ##
-## o ano e opçãoselecionado                                                                                                                                       ##
-## Já a API processamento_csv faz o download do arquivo em CSV que pode ser utilizado futuramente                                                                 ##
-## -------------------------------------------------------------------------------------------------------------------------------------------------------------- ##
+
 @main.route('/comercializacao')
 @login_required
 def comercializacao():
@@ -263,11 +255,52 @@ def comercializacao_por_ano(ano):
 
     except Exception as e:
         return jsonify({'erro': str(e)}), 500
+    
+@main.route('/comercializacao_csv', methods=['GET'])
+@login_required
+def comercializacao_csv():
+    """
+    Endpoint que baixa o CSV de comercializacao e retorna os dados em formato JSON.
+    """
+    csv_url = "http://vitibrasil.cnpuv.embrapa.br/download/Comercio.csv"
+    
+
+    try:
+      
+        response = requests.get(csv_url)
+        response.raise_for_status()  
+
+   
+        decoded_content = response.content.decode('utf-8')
+        csv_reader = csv.reader(io.StringIO(decoded_content), delimiter=';')
+
+        dados = []
+        headers = None
+        for index, row in enumerate(csv_reader):
+            if index == 0:
+               
+                headers = [header.strip() for header in row]
+            else:
+                
+                if any(cell.strip() for cell in row):
+                   
+                    while len(row) < len(headers):
+                        row.append("") 
+                    dados.append(dict(zip(headers, row)))
+
+      
+        if not dados:
+            return jsonify({'erro': 'Nenhum dado encontrado no CSV.'}), 404
+
+        return jsonify({'dados': dados}), 200
+
+    except requests.exceptions.RequestException as e:
+        return jsonify({'erro': f'Erro ao acessar o CSV: {str(e)}'}), 500
+    except Exception as e:
+        return jsonify({'erro': f'Ocorreu um erro ao processar o CSV: {str(e)}'}), 500
+    
 ## --------------------------------------------------------------------I M P O R T A Ç Ã O----------------------------------------------------------------------- ##
-## Aqui estãos as APIS que resolvem a parte de processamento, a API processamento_por_ano_opcao coleta as informações do Site e retorna os dados de acordo com    ##
-## o ano e opçãoselecionado                                                                                                                                       ##
-## Já a API processamento_csv faz o download do arquivo em CSV que pode ser utilizado futuramente                                                                 ##
-## -------------------------------------------------------------------------------------------------------------------------------------------------------------- ##
+
 @main.route('/importacao')
 @login_required
 def importacao():
@@ -310,7 +343,7 @@ def importacao_por_ano_opcao():
 @login_required
 def importacao_csv():
     """
-    Endpoint que baixa o CSV de processamento e retorna os dados em formato JSON.
+    Endpoint que baixa o CSV de importacao e retorna os dados em formato JSON.
     """
     csv_url = "http://vitibrasil.cnpuv.embrapa.br/download/ImpSuco.csv"
 
@@ -348,10 +381,7 @@ def importacao_csv():
         return jsonify({'erro': f'Ocorreu um erro ao processar o CSV: {str(e)}'}), 500
 
 ## --------------------------------------------------------------------E X P O R T A Ç Ã O----------------------------------------------------------------------- ##
-## Aqui estãos as APIS que resolvem a parte de processamento, a API processamento_por_ano_opcao coleta as informações do Site e retorna os dados de acordo com    ##
-## o ano e opçãoselecionado                                                                                                                                       ##
-## Já a API processamento_csv faz o download do arquivo em CSV que pode ser utilizado futuramente                                                                 ##
-## -------------------------------------------------------------------------------------------------------------------------------------------------------------- ##
+
 @main.route('/exportacao')
 @login_required
 def exportacao():

@@ -192,6 +192,14 @@ A maioria dos endpoints requer autenticação. Utilize o login para obter acesso
 - Código `200`: Dados de comercialização no formato JSON.
 - Código `500`: Erro ao buscar dados.
 
+#### 3. Download de Comercialização em CSV
+**Endpoint**: `/comercializacao_csv`  
+**Método**: `GET`  
+**Descrição**: Baixa e processa o arquivo CSV com os dados de comercialização.
+
+**Resposta**:
+- Código `200`: Dados de comercialização no formato JSON.
+- Código `500`: Erro ao acessar ou processar o CSV.
 ---
 
 ### **Importação**
