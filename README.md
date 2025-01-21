@@ -61,43 +61,176 @@ Siga os passos abaixo para rodar a API localmente:
 
 ## Endpoints
 
-### Autenticação
-- **POST** `/login`: Autentica o usuário com `username` e `password`.
-- **GET** `/login`: Exibe a página de login.
+# Documentação da API - Embrapa Wine ML
 
-### Página Inicial
-- **GET** `/`: Exibe a página inicial do site.
+## URL Base
+A URL base para acessar os endpoints da API é:  
+`https://embrapawineml.onrender.com`
 
-### Produção
-- **GET** `/producao`: Exibe a página de produção.
-- **GET** `/api/producao`: Retorna os dados da tabela de produção para o ano especificado.
-- **GET** `/producao/<ano>`: Retorna dados de produção de acordo com o ano fornecido.
-- **GET** `/producao_csv`: Faz o download do arquivo CSV de produção e retorna os dados em formato JSON.
+---
 
-### Processamento
-- **GET** `/processamento`: Exibe a página de processamento.
-- **GET** `/api/processamento`: Retorna dados de processamento para o ano e a opção especificados.
-- **GET** `/processamento_csv`: Faz o download do arquivo CSV de processamento e retorna os dados em formato JSON.
+## Autenticação
 
-### Comercialização
-- **GET** `/comercializacao`: Exibe a página de comercialização.
-- **GET** `/api/comercializacao`: Retorna os dados da tabela de comercialização para o ano especificado.
-- **GET** `/comercializacao/<ano>`: Retorna dados de comercialização de acordo com o ano fornecido.
+A maioria dos endpoints requer autenticação. Utilize o login para obter acesso às funcionalidades protegidas.
 
-### Importação
-- **GET** `/importacao`: Exibe a página de importação.
-- **GET** `/api/importacao`: Retorna os dados de importação para o ano e a opção especificados.
-- **GET** `/importacao_csv`: Faz o download do arquivo CSV de importação e retorna os dados em formato JSON.
+### **Login**
+**Endpoint**: `/login`  
+**Método**: `POST`  
+**Descrição**: Autentica o usuário e redireciona para a página inicial.  
 
-### Exportação
-- **GET** `/exportacao`: Exibe a página de exportação.
-- **GET** `/api/exportacao`: Retorna os dados de exportação para o ano e a opção especificados.
+**Parâmetros de Formulário**:
+- `username` (string): Nome do usuário (ex.: `admin@teste`).
+- `password` (string): Senha do usuário (ex.: `senha123`).
+
+---
+
+## Endpoints
+
+### **Página Inicial**
+**Endpoint**: `/`  
+**Método**: `GET`  
+**Descrição**: Retorna a página inicial do sistema.  
+
+---
+
+### **Produção**
+
+#### 1. Dados de Produção por Ano
+**Endpoint**: `/api/producao`  
+**Método**: `GET`  
+**Descrição**: Retorna os dados da produção para um ano específico.
+
+**Parâmetros de Consulta**:
+- `ano` (string, opcional): Ano dos dados desejados (padrão: `2023`).
+
+**Resposta**:
+- Código `200`: Dados de produção no formato JSON.
+- Código `500`: Erro ao buscar dados.
+
+---
+
+#### 2. Produção por Ano
+**Endpoint**: `/producao/<int:ano>`  
+**Método**: `GET`  
+**Descrição**: Retorna os dados de produção para um ano específico.
+
+**Parâmetros**:
+- `ano` (int): Ano dos dados desejados.
+
+**Resposta**:
+- Código `200`: Dados de produção no formato JSON.
+- Código `500`: Erro ao buscar dados.
+
+---
+
+#### 3. Download de Produção em CSV
+**Endpoint**: `/producao_csv`  
+**Método**: `GET`  
+**Descrição**: Baixa e processa o arquivo CSV com os dados de produção.
+
+**Resposta**:
+- Código `200`: Dados de produção no formato JSON.
+- Código `500`: Erro ao acessar ou processar o CSV.
+
+---
+
+### **Processamento**
+
+#### 1. Processamento por Ano e Opção
+**Endpoint**: `/api/processamento`  
+**Método**: `GET`  
+**Descrição**: Retorna os dados de processamento para o ano e a opção especificados.
+
+**Parâmetros de Consulta**:
+- `ano` (int, obrigatório): Ano dos dados desejados.
+- `opcao` (string, obrigatório): Opção específica do processamento.
+
+**Resposta**:
+- Código `200`: Dados de processamento no formato JSON.
+- Código `400`: Parâmetros obrigatórios ausentes.
+- Código `500`: Erro ao buscar dados.
+
+---
+
+#### 2. Download de Processamento em CSV
+**Endpoint**: `/processamento_csv`  
+**Método**: `GET`  
+**Descrição**: Baixa e processa o arquivo CSV com os dados de processamento.
+
+**Resposta**:
+- Código `200`: Dados de processamento no formato JSON.
+- Código `404`: Nenhum dado encontrado.
+- Código `500`: Erro ao acessar ou processar o CSV.
+
+---
+
+### **Comercialização**
+
+#### 1. Dados de Comercialização por Ano
+**Endpoint**: `/api/comercializacao`  
+**Método**: `GET`  
+**Descrição**: Retorna os dados de comercialização para um ano específico.
+
+**Parâmetros de Consulta**:
+- `ano` (string, opcional): Ano dos dados desejados (padrão: `2023`).
+
+**Resposta**:
+- Código `200`: Dados de comercialização no formato JSON.
+- Código `500`: Erro ao buscar dados.
+
+---
+
+#### 2. Comercialização por Ano
+**Endpoint**: `/comercializacao/<int:ano>`  
+**Método**: `GET`  
+**Descrição**: Retorna os dados de comercialização para um ano específico.
+
+**Parâmetros**:
+- `ano` (int): Ano dos dados desejados.
+
+**Resposta**:
+- Código `200`: Dados de comercialização no formato JSON.
+- Código `500`: Erro ao buscar dados.
+
+---
+
+### **Importação**
+
+#### 1. Importação por Ano e Opção
+**Endpoint**: `/api/importacao`  
+**Método**: `GET`  
+**Descrição**: Retorna os dados de importação para o ano e a opção especificados.
+
+**Parâmetros de Consulta**:
+- `ano` (int, obrigatório): Ano dos dados desejados.
+- `opcao` (string, obrigatório): Opção específica da importação.
+
+**Resposta**:
+- Código `200`: Dados de importação no formato JSON.
+- Código `400`: Parâmetros obrigatórios ausentes.
+- Código `500`: Erro ao buscar dados.
+
+---
+
+#### 2. Download de Importação em CSV
+**Endpoint**: `/importacao_csv`  
+**Método**: `GET`  
+**Descrição**: Baixa e processa o arquivo CSV com os dados de importação.
+
+**Resposta**:
+- Código `200`: Dados de importação no formato JSON.
+- Código `404`: Nenhum dado encontrado.
+- Código `500`: Erro ao acessar ou processar o CSV.
+
+---
+
+## Restrições de Acesso
+Todos os endpoints, exceto `/login` e `/`, exigem autenticação via login. Certifique-se de estar autenticado antes de realizar as chamadas.
 
 ## Tecnologias Utilizadas
 - Python (Flask)
-- JWT para autenticação
-- Banco de Dados (SQLite/PostgreSQL)
-- Documentação com Swagger
+- Flask Login
+
 
 ## Como Usar
 
@@ -106,8 +239,4 @@ Siga os passos abaixo para rodar a API localmente:
 3. **Download de CSV:** Para obter dados em formato CSV, acesse os endpoints correspondentes com a opção `/csv`.
 4. **API Response:** A API retorna os dados em formato JSON para facilitar a integração.
 
-## Exemplos
 
-**1. Consultar dados de produção para o ano de 2023:**
-```http
-GET /api/producao?ano=2023
