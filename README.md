@@ -79,8 +79,8 @@ A maioria dos endpoints requer autenticação. Utilize o login para obter acesso
 **Descrição**: Autentica o usuário e redireciona para a página inicial.  
 
 **Parâmetros de Formulário**:
-- `username` (string): Nome do usuário (ex.: `admin@teste`).
-- `password` (string): Senha do usuário (ex.: `senha123`).
+- `username` (string): Nome do usuário (`admin@teste`).
+- `password` (string): Senha do usuário (`senha123`).
 
 ---
 
